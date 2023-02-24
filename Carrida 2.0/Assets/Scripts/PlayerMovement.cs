@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CarController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody _sphereRb;
     [SerializeField] private Rigidbody _carRb;
@@ -45,29 +45,10 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        _direction = _playerInput.Player.Move.ReadValue<Vector2>();
-        _moveInput = _direction.y;
-        _turnInput = _direction.x;
-
-
-        Debug.Log("Direction X: " + _direction.x + "Direction Y: " + _direction.y);
-
-        float newRotation = _turnInput * _turnSpeed * Time.deltaTime * _moveInput;
-        if (_isGrounded)
-            transform.Rotate(0, newRotation, 0, Space.World);
-
-        transform.position = _sphereRb.transform.position;
-
-        RaycastHit hit;
-        _isGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, _ground);
-
-        Quaternion toRotateTo = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, toRotateTo, _alignToGroundTime * Time.deltaTime);
-
-        _moveInput *= _moveInput > 0 ? _forwardSpeed : _reverseSpeed;
-        Debug.Log("isGrounded: " + _isGrounded);
-        _sphereRb.drag = _isGrounded ? _normalDrag : _modifiedDrag;
-
+        HandleInput();
+        Turn();
+        AlignToGroundTime();
+        Move();
     }
 
     private void FixedUpdate()
@@ -85,4 +66,33 @@ public class CarController : MonoBehaviour
         _carRb.MoveRotation(transform.rotation);
     }
 
+    private void HandleInput()
+    {
+        _direction = _playerInput.Player.Move.ReadValue<Vector2>();
+        _moveInput = _direction.y;
+        _turnInput = _direction.x;
+    }
+
+    private void Turn()
+    {
+        float newRotation = _turnInput * _turnSpeed * Time.deltaTime * _moveInput;
+        if (_isGrounded)
+            transform.Rotate(0, newRotation, 0, Space.World);
+
+        transform.position = _sphereRb.transform.position;
+    }
+
+    private void Move()
+    {
+        _moveInput *= _moveInput > 0 ? _forwardSpeed : _reverseSpeed;
+        _sphereRb.drag = _isGrounded ? _normalDrag : _modifiedDrag;
+    }
+
+    private void AlignToGroundTime()
+    {
+        RaycastHit hit;
+        _isGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, _ground);
+        Quaternion toRotateTo = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotateTo, _alignToGroundTime * Time.deltaTime);
+    }
 }
