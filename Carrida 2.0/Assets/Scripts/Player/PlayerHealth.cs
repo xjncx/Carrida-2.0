@@ -7,8 +7,8 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private HealthBar _healthBar;
-    [SerializeField] private UnityEvent _dead = new UnityEvent();
-    [SerializeField] private UnityEvent _hit = new UnityEvent();
+    private UnityEvent _dead = new UnityEvent();
+    private UnityEvent _hit = new UnityEvent();
 
     private int _currentHealth;
     private bool _avaibleToAttack = true;

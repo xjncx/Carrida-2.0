@@ -62,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _sphereRb.AddForce(transform.up * -200f);
         }
-        Debug.Log("isGrounded: " + _isGrounded);
         _carRb.MoveRotation(transform.rotation);
     }
 
