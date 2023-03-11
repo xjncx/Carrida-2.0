@@ -5,16 +5,17 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private List<WheelsAxis> _wheelsAxles;
-    [SerializeField] private float _maxMotorSpeed;
+    //[SerializeField] private float _maxMotorSpeed;
     [SerializeField] private float _maxSteeringAngle;
     [SerializeField] private float _accelerate;
     [SerializeField] private GameObject _centerOfMass;
+    [SerializeField] private Motor _motor;
+
     private PlayerInput _playerInput;
     private Vector2 _direction;
-
-    private Rigidbody _rb;
+    private Rigidbody _carRb;
     private float _steering;
-    private float _motor;
+    private float _motorSpeed;
 
     private void Awake()
     {
@@ -23,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
-        _rb.centerOfMass = _centerOfMass.transform.localPosition;
+        _carRb = GetComponent<Rigidbody>();
+        _carRb.centerOfMass = _centerOfMass.transform.localPosition;
     }
 
     private void OnEnable()
@@ -45,6 +46,10 @@ public class PlayerMovement : MonoBehaviour
     {
         HandlerInput();
     }
+    public void ChangeMotor(Motor motor)
+    {
+        _motor = motor;
+    }
 
     private void Drive()
     {
@@ -52,14 +57,16 @@ public class PlayerMovement : MonoBehaviour
 
             foreach (WheelsAxis wheelsAxis in _wheelsAxles)
             {
-                wheelsAxis.Move(_motor, _steering);
+                wheelsAxis.Move(_motorSpeed, _steering);
             }
     }
 
     private void HandlerInput()
     {
         _direction = _playerInput.Player.Move.ReadValue<Vector2>();
-        _motor = _maxMotorSpeed * _direction.y;
+        _motorSpeed = _motor.MaxPower * _direction.y;
         _steering = _maxSteeringAngle * _direction.x;
     }
+
+
 }

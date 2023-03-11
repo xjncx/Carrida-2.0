@@ -7,13 +7,15 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float _secondsBeforeAttack;
     [SerializeField] private float _speed;
+
     private PlayerMovement _player;
-    private Rigidbody _rb;
+    private Rigidbody _enemyCarRb;
     private bool _isAttack = true;
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        _enemyCarRb = GetComponent<Rigidbody>();
+        _player = FindObjectOfType<PlayerMovement>();
     }
 
     private void FixedUpdate()
@@ -23,7 +25,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void FindPlayer()
     {
-        _player = FindObjectOfType<PlayerMovement>();
 
         if (_player)
         {
@@ -37,7 +38,7 @@ public class EnemyMovement : MonoBehaviour
     private void MoveToPlayer(Vector3 direction)
     {
         if (_isAttack)
-            _rb.velocity = new Vector3(direction.x, direction.y, direction.z) * _speed;
+            _enemyCarRb.velocity = new Vector3(direction.x, direction.y, direction.z) * _speed;
     }
 
     private void OnTriggerEnter(Collider other)
