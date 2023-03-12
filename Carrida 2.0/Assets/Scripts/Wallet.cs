@@ -12,4 +12,9 @@ public class Wallet : MonoBehaviour
     {
             _amount++;
     }
+
+    public void Spend(int price)
+    {
+        _amount -= price;
+    }
 }

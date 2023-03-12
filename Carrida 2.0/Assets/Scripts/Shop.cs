@@ -36,7 +36,7 @@ public class Shop : MonoBehaviour
         {
             var motorToPlayer = Instantiate(motor);
             _playerMovement.ChangeMotor(motorToPlayer);
-          // MotorToPlayer.Buy();
+            _wallet.Spend(motor.Price);
             view.SellButtonClick -= OnSellButtonClick;
         }
     }
