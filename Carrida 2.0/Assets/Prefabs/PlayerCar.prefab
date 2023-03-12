@@ -686,6 +686,7 @@ GameObject:
   - component: {fileID: 1724767917560768919}
   - component: {fileID: 1724767917560768918}
   - component: {fileID: 1724767917560768920}
+  - component: {fileID: 4323003210271514646}
   m_Layer: 0
   m_Name: PlayerCar
   m_TagString: Untagged
@@ -933,6 +934,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4323003210271514646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7337246752005098492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625034b9fe096504a8144f511e376937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _amount: 100
 --- !u!1 &7958602507195589977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,7 +1205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4682921224875252995, guid: 503783e94868e194aba8bbf66063b36a, type: 3}
       propertyPath: m_Name
-      value: Motor
+      value: StandartMotor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 503783e94868e194aba8bbf66063b36a, type: 3}
