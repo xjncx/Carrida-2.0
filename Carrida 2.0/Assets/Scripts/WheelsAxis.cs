@@ -22,7 +22,6 @@ public class WheelsAxis : MonoBehaviour
 
         ApplyLocalPositionToVisuals(_rightWheel);
         ApplyLocalPositionToVisuals(_leftWheel);
-
     }
 
     private void ApplyLocalPositionToVisuals(WheelCollider collider)
@@ -37,7 +36,6 @@ public class WheelsAxis : MonoBehaviour
             Vector3 position;
             Quaternion rotation;
             collider.GetWorldPose(out position, out rotation);
-
             visualWheel.transform.position = position;
             visualWheel.transform.rotation = rotation;
         }

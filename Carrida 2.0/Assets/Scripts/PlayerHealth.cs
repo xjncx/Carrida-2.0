@@ -40,6 +40,13 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private IEnumerator UnableToAttack()
+    {
+        _avaibleToAttack = false;
+        yield return new WaitForSeconds(_secondsBeforeDamage);
+        _avaibleToAttack = true;
+    }
+
     private void TakeDamage(int damage)
     {
         if (_currentHealth > damage)
@@ -55,13 +62,6 @@ public class PlayerHealth : MonoBehaviour
             _isAlive = false;
             _dead.Invoke();
         }
-    }
-
-    private IEnumerator UnableToAttack()
-    {
-        _avaibleToAttack = false;
-        yield return new WaitForSeconds(_secondsBeforeDamage);
-        _avaibleToAttack = true;
     }
 }
 
